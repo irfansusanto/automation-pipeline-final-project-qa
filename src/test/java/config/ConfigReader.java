@@ -4,9 +4,10 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 public class ConfigReader {
 
-    private static final Dotenv dotenv = Dotenv.configure()
+    private static Dotenv dotenv = Dotenv.configure()
             .ignoreIfMissing()
             .load();
+
     private static String getValue(String key) {
         String envValue = System.getenv(key);
         if (envValue != null && !envValue.isEmpty()) {
