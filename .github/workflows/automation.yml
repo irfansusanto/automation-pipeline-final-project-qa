@@ -41,7 +41,12 @@ jobs:
           BASE_URL: ${{ secrets.BASE_URL }}
           LOGIN_EMAIL: ${{ secrets.LOGIN_EMAIL }}
           LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
-          HEADLESS: true
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          API_COMPANY_ID: ${{ secrets.API_COMPANY_ID }}
+          API_USERNAME: ${{ secrets.API_USERNAME }}
+          API_PASSWORD: ${{ secrets.API_PASSWORD }}
+          HEADLESS: ${{ secrets.HEADLESS }}
+          BROWSER: ${{ secrets.BROWSER }}
         run: ./gradlew clean test
 
       - name: Upload Allure Results
