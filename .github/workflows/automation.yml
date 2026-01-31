@@ -45,8 +45,8 @@ jobs:
           API_COMPANY_ID: ${{ secrets.API_COMPANY_ID }}
           API_USERNAME: ${{ secrets.API_USERNAME }}
           API_PASSWORD: ${{ secrets.API_PASSWORD }}
-          HEADLESS: ${{ secrets.HEADLESS }}
-          BROWSER: ${{ secrets.BROWSER }}
+          HEADLESS: true
+          BROWSER: chrome
         run: ./gradlew clean test
 
       - name: Upload Allure Results

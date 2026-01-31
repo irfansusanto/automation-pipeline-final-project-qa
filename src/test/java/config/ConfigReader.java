@@ -4,18 +4,9 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 public class ConfigReader {
 
-    private static Dotenv dotenv;
-
-    static {
-        try {
-            dotenv = Dotenv.configure()
-                    .ignoreIfMissing()
-                    .load();
-        } catch (Exception e) {
-            dotenv = null;
-        }
-    }
-
+    private static final Dotenv dotenv = Dotenv.configure()
+            .ignoreIfMissing()
+            .load();
     private static String getValue(String key) {
         String envValue = System.getenv(key);
         if (envValue != null && !envValue.isEmpty()) {
