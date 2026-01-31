@@ -4,25 +4,47 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 public class ConfigReader {
 
-    private static Dotenv dotenv = Dotenv.load();
+    private static Dotenv dotenv;
+
+    static {
+        try {
+            dotenv = Dotenv.configure()
+                    .ignoreIfMissing()
+                    .load();
+        } catch (Exception e) {
+            dotenv = null;
+        }
+    }
+
+    private static String getValue(String key) {
+        String envValue = System.getenv(key);
+        if (envValue != null && !envValue.isEmpty()) {
+            return envValue;
+        }
+        if (dotenv != null) {
+            return dotenv.get(key);
+        }
+        return null;
+    }
 
     public static String getBaseUrl() {
-        return dotenv.get("BASE_URL");
+        return getValue("BASE_URL");
     }
 
     public static String getEmail() {
-        return dotenv.get("LOGIN_EMAIL");
+        return getValue("LOGIN_EMAIL");
     }
 
     public static String getPassword() {
-        return dotenv.get("LOGIN_PASSWORD");
+        return getValue("LOGIN_PASSWORD");
     }
 
     public static String getBrowser() {
-        return dotenv.get("BROWSER");
+        return getValue("BROWSER");
     }
 
     public static boolean isHeadless() {
-        return Boolean.parseBoolean(dotenv.get("HEADLESS"));
+        String val = getValue("HEADLESS");
+        return val != null && val.equalsIgnoreCase("true");
     }
 }
