@@ -8,7 +8,7 @@ public class ConfigReader {
             .ignoreIfMissing()
             .load();
 
-    private static String getValue(String key) {
+    public static String getValue(String key) {
         String envValue = System.getenv(key);
         if (envValue != null && !envValue.isEmpty()) {
             return envValue;
