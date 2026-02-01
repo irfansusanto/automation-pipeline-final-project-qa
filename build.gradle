@@ -1,49 +1,26 @@
-package config;
+plugins {
+    id 'java'
+}
 
-import io.github.cdimascio.dotenv.Dotenv;
+repositories {
+    mavenCentral()
+}
 
-public class ConfigReader {
+dependencies {
+    testImplementation 'org.testng:testng:7.9.0'
+    testImplementation 'io.qameta.allure:allure-testng:2.25.0'
+    testImplementation 'io.rest-assured:rest-assured:5.4.0'
+    testImplementation 'io.rest-assured:json-path:5.4.0'
+    testImplementation 'io.rest-assured:xml-path:5.4.0'
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.17.0'
+    testImplementation 'io.github.bonigarcia:webdrivermanager:5.6.3'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
+    testImplementation 'io.github.cdimascio:dotenv-java:3.0.0'
 
-    private static final Dotenv dotenv = Dotenv.configure()
-            .ignoreIfMissing()
-            .load();
+}
 
-    // Ambil dari GitHub Secrets dulu, kalau tidak ada baru .env
-    public static String getValue(String key) {
 
-        String envValue = System.getenv(key);
-
-        if (envValue != null && !envValue.isEmpty()) {
-            return envValue;
-        }
-
-        if (dotenv != null) {
-            return dotenv.get(key);
-        }
-
-        return null;
-    }
-
-    public static String getBaseUrl() {
-        return getValue("BASE_URL");
-    }
-
-    public static String getEmail() {
-        return getValue("LOGIN_EMAIL");
-    }
-
-    public static String getPassword() {
-        return getValue("LOGIN_PASSWORD");
-    }
-
-    public static String getBrowser() {
-        return getValue("BROWSER");
-    }
-
-    public static boolean isHeadless() {
-
-        String val = getValue("HEADLESS");
-
-        return val != null && val.equalsIgnoreCase("true");
-    }
+test {
+    useTestNG()
+    systemProperty "allure.results.directory", "build/allure-results"
 }

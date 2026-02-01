@@ -71,6 +71,10 @@ public class BaseTest {
             type = "image/png"
     )
     public byte[] attachScreenshot(String testName, String status) {
+
+        if (driver == null) {
+            return new byte[0];
+        }
         try {
             return ((TakesScreenshot) driver)
                     .getScreenshotAs(OutputType.BYTES);
@@ -78,6 +82,7 @@ public class BaseTest {
             return new byte[0];
         }
     }
+
 
     public WebDriver getDriver() {
         return driver;
